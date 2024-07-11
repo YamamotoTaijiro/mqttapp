@@ -1,17 +1,26 @@
 'use strict'
 
-import { app, BrowserWindow, BrowserView, ipcMain } from 'electron';
-//import { app, BrowserWindow, BrowserView, ipcMain } from 'electron'
-import Store from 'electron-store';
+//import { app, BrowserWindow, BrowserView, ipcMain } from 'electron';
+//import Store from 'electron-store';
+//const store = new Store();
+//import mqtt from 'mqtt';
+
+const { app, BrowserWindow, BrowserView, ipcMain  } = require('electron');
+const Store = require('electron-store');
 const store = new Store();
-import mqtt from 'mqtt';
+const mqtt = require('mqtt');
 
 
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+//import path from 'path';
+//import { fileURLToPath } from 'url';
+//const __filename = fileURLToPath(import.meta.url);
+//const __dirname = path.dirname(__filename);
+
+const path = require('path');
+
+if (require('electron-squirrel-startup')) app.quit();
+
 
 const mqttsub = store.get('mqtt.sub') || { broker: "localhost", port: 1883, topic: "pmrsu/0/stay" }
 const mqttpub = store.get('mqtt.pub') || { broker: "localhost", port: 1883, topic: "pmcnt/0/status", interval: 60, no:0 }
@@ -51,7 +60,7 @@ sub.on('message', (topic, message) => {
     contMode = data.contMode;
     if(win){
       if(contMode == 0 || contMode == 1){
-        win.loadURL('file://' + path.resolve(__dirname + `/../public_html/${contMode}.html`));
+        win.loadURL('file://' + path.resolve(__dirname + `/public_html/${contMode}.html`));
       }
     }
   }
@@ -111,7 +120,7 @@ const createWindow = async () => {
   win.setResizable(false);
 
   //win.loadFile('public/index.html')
-  const appfile = path.resolve(__dirname + '/../public_html/0.html');
+  const appfile = path.resolve(__dirname + '/public_html/0.html');
   //console.log(appfile);
   win.loadURL('file://' + appfile);
 
