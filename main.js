@@ -22,8 +22,8 @@ const path = require('path');
 if (require('electron-squirrel-startup')) app.quit();
 
 
-const mqttsub = store.get('mqtt.sub') || { broker: "localhost", port: 1883, topic: "pmrsu/0/stay" }
-const mqttpub = store.get('mqtt.pub') || { broker: "localhost", port: 1883, topic: "pmcnt/0/status", interval: 60, no:0 }
+const mqttsub = store.get('mqtt.sub') || { broker: "projection-mapping-poc-vm.japaneast.cloudapp.azure.com", port: 1883, topic: "pmrsu/0/stay" }
+const mqttpub = store.get('mqtt.pub') || { broker: "projection-mapping-poc-vm.japaneast.cloudapp.azure.com", port: 1883, topic: "pmcnt/0/status", interval: 60, no:0 }
 
 const clientIdSub = `mqtt_${Math.random().toString(16).slice(3)}`
 const clientIdPub = `mqtt_${Math.random().toString(16).slice(3)}`
